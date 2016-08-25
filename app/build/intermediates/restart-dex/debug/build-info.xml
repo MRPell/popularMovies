@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="armeabi,armeabi-v7a"
+    api-level="23"
+    density="xhdpi"
+    format="8"
+    timestamp="1557791780663029"
+    token="7707650773724458600"
+    verifier="COLD_SWAP_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="0" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="0" />
+    <task
+        name="verifier"
+        duration="0" />
+
+    <build
+        timestamp="1544898973370117"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\outputs\apk\app-debug.apk"
+            type="MAIN" />
+    </build>
+    <build
+        timestamp="1557592846362649"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+            type="DEX" />
+        <artifact
+            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_4\classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="1557791780663029"
+        verifier="COLD_SWAP_REQUESTED" />
+
+</instant-run>

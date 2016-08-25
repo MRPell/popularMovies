@@ -3,6 +3,7 @@
     <string name="app_name">Popular Movies</string>
 
     <!--url strings-->
+    <string name="content_authority">com.example.android.popularmovies.app</string>
     <string name="poster_base_url">http://image.tmdb.org/t/p/w185</string>
     <string name="tmdb_base_url">https://api.themoviedb.org/3/movie/</string>
 
@@ -23,4 +24,8 @@
         <item>popular</item>
         <item>top_rated</item>
     </string-array>
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">popularmovies.example.com</string>
+
+
 </resources>

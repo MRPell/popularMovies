@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\xml\\authenticator.xml",
+        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\xml\\authenticator.xml"
+    },
+    {
+        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\xml\\pref_general.xml",
+        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\xml\\pref_general.xml"
+    },
+    {
+        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\xml\\syncadapter.xml",
+        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\xml\\syncadapter.xml"
+    }
+]
