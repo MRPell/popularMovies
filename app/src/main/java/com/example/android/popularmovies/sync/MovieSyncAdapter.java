@@ -7,11 +7,13 @@ import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.android.popularmovies.BuildConfig;
@@ -91,14 +93,34 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
             // Possible parameters are avaiable at TMDB API page, at
             // https://www.themoviedb.org/documentation/api
             final String TMDB_BASE_URL =
-                    "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc";
+                    "http://api.themoviedb.org/3/discover/movie/";
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String sortPref = sharedPref.getString(
+                    "Sort Method",
+                    "popularity.desc");
+            Log.d("sort type", sortPref);
+            String sortType = "popularity.desc";
+            String MIN_VOTES = "vote_count.gte";
+            String numVotes;
+            if(sortPref.equals("vote_average.desc")){
+                numVotes = "50";
+            }
+            else
+            {
+                numVotes = "0";
+            }
+
+            String otherSortType = "vote_average.desc";
             final String API_ID = "api_key";
+            final String SORT_TYPE = "sort_by";
 
             //api call. Add api key to gradle properties
             Uri builtUri = Uri.parse(TMDB_BASE_URL).buildUpon()
+                    .appendQueryParameter(MIN_VOTES, numVotes)
+                    .appendQueryParameter(SORT_TYPE, sortPref)
                     .appendQueryParameter(API_ID, BuildConfig.MOVIE_DB_API_KEY)
                     .build();
-            Log.v(LOG_TAG, builtUri.toString());
+            Log.d(LOG_TAG, builtUri.toString());
             URL url = new URL(builtUri.toString());
 
             // Create the request to TMDB, and open the connection
@@ -204,18 +226,20 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 cVVector.add(movieValues);
             }
 
+            //****************fix delete **********************
+            //check this for accuracy
+            // delete old data so we don't build up an endless history
+            getContext().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI,
+                    null,
+                    null);
+//                    MovieContract.MovieEntry._ID + "<= ?", new String[] {"10"});
+
             int inserted = 0;
             // add to database
             if (cVVector.size() > 0) {
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
                 getContext().getContentResolver().bulkInsert(MovieContract.MovieEntry.CONTENT_URI, cvArray);
-
-                //****************fix delete **********************
-                //check this for accuracy
-                // delete old data so we don't build up an endless history
-                getContext().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI,
-                        MovieContract.MovieEntry._ID + "<= ?", new String[] {"10"});
 
             }
 
@@ -254,6 +278,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
      * @param context The context used to access the account service
      */
     public static void syncImmediately(Context context) {
+        final String SORT_PREF = "sortStyle";
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);

@@ -10,10 +10,11 @@ import android.text.format.Time;
  * Created by MRPell on 8/5/2016.
  */
 
-public class MovieContract{
+public class MovieContract {
 
     //empty constructor to prevent someone from accidentally instantiating it
-    MovieContract() {}
+    MovieContract() {
+    }
 
     // The "Content authority" is a name for the entire content provider, similar to the
     // relationship between a domain name and its website.  A convenient string to use for the
@@ -69,7 +70,17 @@ public class MovieContract{
         public static final String COLUMN_USER_REVIEWS = "user_reviews";
 
         public static Uri buildMovieUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
+            Uri returnUri;
+            if (id != -1)
+                returnUri = ContentUris.withAppendedId(CONTENT_URI, id);
+else
+                returnUri = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_DETAILS).build();
+
+            return returnUri;
+        }
+
+        public static String getMovieIdFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
         }
 
     }

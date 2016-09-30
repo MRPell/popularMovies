@@ -14,7 +14,7 @@ import com.example.android.popularmovies.data.MovieContract.MovieEntry;
 
 public class MovieDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "Movies.db";
 
     public MovieDbHelper(Context context) {
@@ -24,7 +24,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 
         //http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=...
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " + MovieEntry.TABLE_NAME + " ( " +
-                "_id" + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 MovieEntry.COLUMN_MOVIE_ID + " REAL NOT NULL, " +
                 MovieEntry.COLUMN_MOVIE_TITLE + " TEXT NOT NULL, " +
                 MovieEntry.COLUMN_SYNOPSIS + " TEXT NOT NULL, " +

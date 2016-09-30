@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     private int mPosition = GridView.INVALID_POSITION;
     private static final int MOVIE_LOADER = 0;
     private static final String SELECTED_KEY = "selected_position";
+    private final String LOG_TAG = MainActivityFragment.class.getSimpleName();
     private GridView mGridView;
     private boolean mUseTodayLayout;
 
@@ -108,6 +110,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         GridView gridview = (GridView) rootView.findViewById(R.id.gridview);
         gridview.setAdapter(mMovieImageAdapter);
 
+
         //handles what to do when user clicks on an image
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -116,17 +119,27 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
                 // if it cannot seek to that position.
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if (cursor != null) {
-                    ((Callback) getActivity())
-                            .onItemSelected(MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)));
+                    Uri detailUri = MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID));
+                    Log.v(LOG_TAG, detailUri.toString());
+                    Intent intent = new Intent(getActivity(), DetailActivity.class)
+                            .setData(detailUri);
+                    startActivity(intent);
+//                    //content://com.example.android.popularmovies.app/movies/0
+//                    ((Callback) getActivity())
+//                            .onItemSelected(MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)));
+//                }
+//                mPosition = position;
+//            }
+//        });
+//        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+//            // The listview probably hasn't even been populated yet.  Actually perform the
+//            // swapout in onLoadFinished.
+//            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+//        }
+//        return rootView;
                 }
-                mPosition = position;
             }
         });
-        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
-            // The listview probably hasn't even been populated yet.  Actually perform the
-            // swapout in onLoadFinished.
-            mPosition = savedInstanceState.getInt(SELECTED_KEY);
-        }
         return rootView;
     }
 
@@ -134,15 +147,15 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
      *this method updates the home screen movie list based on the user
      * setting selection
      */
-    private void updateMovies() {
-        MovieSyncAdapter.syncImmediately(getActivity());
-    }
+        private void updateMovies () {
+            MovieSyncAdapter.syncImmediately(getActivity());
+        }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(MOVIE_LOADER, null, this);
-        super.onActivityCreated(savedInstanceState);
-    }
+        @Override
+        public void onActivityCreated (Bundle savedInstanceState){
+            getLoaderManager().initLoader(MOVIE_LOADER, null, this);
+            super.onActivityCreated(savedInstanceState);
+        }
 //
 //        //get user sort setting
 //        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -157,58 +170,59 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     /*
      *start app with movie list populated by last user setting
      */
-    @Override
-    public void onStart() {
-        super.onStart();
-        updateMovies();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        // When tablets rotate, the currently selected list item needs to be saved.
-        // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
-        // so check for that before storing.
-        if (mPosition != ListView.INVALID_POSITION) {
-            outState.putInt(SELECTED_KEY, mPosition);
+        @Override
+        public void onStart () {
+            super.onStart();
+            updateMovies();
         }
-        super.onSaveInstanceState(outState);
-    }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        // This is called when a new Loader needs to be created.  This
-        // fragment only uses one loader, so we don't care about checking the id.
-
-        // To only show current and future dates, filter the query to return weather only for
-        // dates after or including today.
-
-        // Sort order:  Ascending, by date.
-        String sortOrder = MovieContract.MovieEntry.COLUMN_MOVIE_ID + " ASC";
-
-        Uri movieUri = MovieContract.MovieEntry.buildMovieUri(0);
-
-        return new CursorLoader(getActivity(),
-                movieUri,
-                MOVIE_COLUMNS,
-                null,
-                null,
-                sortOrder);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mMovieImageAdapter.swapCursor(data);
-        if (mPosition != ListView.INVALID_POSITION) {
-            // If we don't need to restart the loader, and there's a desired position to restore
-            // to, do so now.
-            mGridView.smoothScrollToPosition(mPosition);
+        @Override
+        public void onSaveInstanceState (Bundle outState){
+            // When tablets rotate, the currently selected list item needs to be saved.
+            // When no item is selected, mPosition will be set to Listview.INVALID_POSITION,
+            // so check for that before storing.
+            if (mPosition != ListView.INVALID_POSITION) {
+                outState.putInt(SELECTED_KEY, mPosition);
+            }
+            super.onSaveInstanceState(outState);
         }
+
+        @Override
+        public Loader<Cursor> onCreateLoader ( int i, Bundle bundle){
+            // This is called when a new Loader needs to be created.  This
+            // fragment only uses one loader, so we don't care about checking the id.
+
+            // To only show current and future dates, filter the query to return weather only for
+            // dates after or including today.
+
+            // Sort order:  Ascending, by date.
+            String sortOrder = MovieContract.MovieEntry.COLUMN_MOVIE_ID + " ASC";
+
+            Uri movieUri = MovieContract.MovieEntry.buildMovieUri(-1);
+
+            Log.d("cursor loader uri", movieUri.toString());
+            return new CursorLoader(getActivity(),
+                    movieUri,
+                    MOVIE_COLUMNS,
+                    null,
+                    null,
+                    sortOrder);
+        }
+
+        @Override
+        public void onLoadFinished (Loader < Cursor > loader, Cursor data){
+            mMovieImageAdapter.swapCursor(data);
+            if (mPosition != ListView.INVALID_POSITION) {
+                // If we don't need to restart the loader, and there's a desired position to restore
+                // to, do so now.
+                mGridView.smoothScrollToPosition(mPosition);
+            }
+        }
+
+        @Override
+        public void onLoaderReset (Loader < Cursor > loader) {
+            mMovieImageAdapter.swapCursor(null);
+        }
+
+
     }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mMovieImageAdapter.swapCursor(null);
-    }
-
-
-}

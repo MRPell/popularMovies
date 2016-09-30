@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sort_option_values">
-        <item>popular</item>
-        <item>top_rated</item>
+        <item>popularity.desc</item>
+        <item>vote_average.desc</item>
     </string-array>
     <string-array name="sort_options">
         <item>By Popularity</item>
@@ -295,7 +295,7 @@
     <string name="poster_base_url">http://image.tmdb.org/t/p/w185</string>
     <string name="settings_sort_label">Sort Movies By</string>
     <string name="sort_method_key">Sort Method</string>
-    <string name="sort_pref_default">popular</string>
+    <string name="sort_pref_default">popular.desc</string>
     <string name="sort_setting_label">Sorting Method</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="sync_account_type">popularmovies.example.com</string>
