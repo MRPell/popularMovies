@@ -64,10 +64,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trailers:"
+            android:text="@string/trailers_header"
             android:padding="4dp"/>
 
         <ListView
+            android:id="@+id/trailer_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@color/colorPrimaryDark">

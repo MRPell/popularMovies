@@ -94,12 +94,16 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
             // https://www.themoviedb.org/documentation/api
             final String TMDB_BASE_URL =
                     "http://api.themoviedb.org/3/discover/movie/";
+
+            //get sort preference from settings selection
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
             String sortPref = sharedPref.getString(
                     "Sort Method",
                     "popularity.desc");
-            Log.d("sort type", sortPref);
-            String sortType = "popularity.desc";
+
+            //set minimum number of votes required to show movie so that movies
+            //without strong rating verification aren't displayed
+            //eventually this should be made a default user setting that can be switched off
             String MIN_VOTES = "vote_count.gte";
             String numVotes;
             if(sortPref.equals("vote_average.desc")){
@@ -110,7 +114,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 numVotes = "0";
             }
 
-            String otherSortType = "vote_average.desc";
             final String API_ID = "api_key";
             final String SORT_TYPE = "sort_by";
 
@@ -278,7 +281,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
      * @param context The context used to access the account service
      */
     public static void syncImmediately(Context context) {
-        final String SORT_PREF = "sortStyle";
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);

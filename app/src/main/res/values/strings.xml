@@ -18,7 +18,7 @@
     <!--sorting options-->
     <string-array name="sort_options">
         <item>By Popularity</item>
-        <item>By User Rating</item>
+        <item>By Highest Rating</item>
     </string-array>
     <string-array name="sort_option_values">
         <item>popularity.desc</item>
@@ -26,6 +26,8 @@
     </string-array>
     <!-- SyncAdapter related -->
     <string name="sync_account_type">popularmovies.example.com</string>
+    <!--details screen-->
+    <string name="trailers_header">Trailers:</string>
 
 
 </resources>

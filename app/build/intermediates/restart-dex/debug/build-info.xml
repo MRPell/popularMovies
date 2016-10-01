@@ -4,9 +4,9 @@
     density="xhdpi"
     format="8"
     plugin-version="2.2.0"
-    timestamp="32366932255713"
+    timestamp="53135716132409"
     token="7707650773724458600"
-    verifier="FULL_BUILD_REQUESTED" >
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
@@ -22,15 +22,22 @@
         duration="0" />
 
     <artifact
-        location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
+        type="RESOURCES" />
 
     <build
-        timestamp="32366932255713"
+        timestamp="52951319491536"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="53135716132409"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
+            type="RESOURCES" />
     </build>
 
 </instant-run>
