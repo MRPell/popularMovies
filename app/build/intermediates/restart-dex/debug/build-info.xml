@@ -4,7 +4,7 @@
     density="xhdpi"
     format="8"
     plugin-version="2.2.0"
-    timestamp="53135716132409"
+    timestamp="310802392349039"
     token="7707650773724458600"
     verifier="COMPATIBLE" >
 
@@ -26,14 +26,28 @@
         type="RESOURCES" />
 
     <build
-        timestamp="52951319491536"
+        timestamp="308570920474768"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
     </build>
     <build
-        timestamp="53135716132409"
+        timestamp="309514926431782"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="310358630599731"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\builds\debug\310358630599731\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="310802392349039"
         verifier="COMPATIBLE" >
         <artifact
             location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"

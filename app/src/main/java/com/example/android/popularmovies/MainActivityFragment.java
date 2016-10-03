@@ -119,6 +119,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
                 // if it cannot seek to that position.
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if (cursor != null) {
+                    Log.v(LOG_TAG + "Movie ID", Long.toString(cursor.getLong(COL_MOVIE_ID)));
                     Uri detailUri = MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID));
                     Log.v(LOG_TAG, detailUri.toString());
                     Intent intent = new Intent(getActivity(), DetailActivity.class)

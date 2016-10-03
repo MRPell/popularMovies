@@ -216,6 +216,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 releaseDate = movieObject.getString(MDB_RELEASE_DATE);
 
 
+                Log.v(LOG_TAG + "movie ID", Integer.toString(movieId));
                 ContentValues movieValues = new ContentValues();
 
 

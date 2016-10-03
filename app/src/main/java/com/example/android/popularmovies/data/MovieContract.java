@@ -59,7 +59,7 @@ public class MovieContract {
 
         // The movie name string is what will be sent to the movie db
         // as the movie query.
-        public static final String COLUMN_MOVIE_ID = "id";
+        public static final String COLUMN_MOVIE_ID = "MovieId";
         public static final String COLUMN_MOVIE_TITLE = "movie_name";
         public static final String COLUMN_RELEASE_DATE = "release_date";
         public static final String COLUMN_RUNNING_TIME = "running_time";

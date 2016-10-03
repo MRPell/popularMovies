@@ -20,7 +20,7 @@ public class DetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(container, new DetailFragment())
+                    .add(container, new DetailActivityFragment())
                     .commit();
         }
     }

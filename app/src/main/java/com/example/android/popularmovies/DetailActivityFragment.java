@@ -36,14 +36,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-
-import static android.R.attr.data;
 
 /**
  * Created by MRPell on 10/1/2016.
@@ -52,62 +47,58 @@ import static android.R.attr.data;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailFragment extends android.support.v4.app.Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private ArrayAdapter<String> mTrailerAdapter;
+public class DetailActivityFragment extends android.support.v4.app.Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    ArrayAdapter<String> mTrailerAdapter;
     private String mMovieId;
-    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+    private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
 
     private static final String MOVIE_SHARE_HASHTAG = " #PopularMoviesApp";
 
     private ShareActionProvider mShareActionProvider;
-    private String mMovieDetails;
+    private String[] mMovieDetails;
 
     private static final int DETAIL_LOADER = 0;
 
 
     private static final String[] MOVIE_COLUMNS = {
+            MovieContract.MovieEntry._ID,
             MovieContract.MovieEntry.COLUMN_MOVIE_ID,
             MovieContract.MovieEntry.COLUMN_POSTER_BITMAP,
             MovieContract.MovieEntry.COLUMN_MOVIE_TITLE,
             MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
             MovieContract.MovieEntry.COLUMN_USER_RATING,
-            MovieContract.MovieEntry.COLUMN_SYNOPSIS,
-            MovieContract.MovieEntry._ID
+            MovieContract.MovieEntry.COLUMN_SYNOPSIS
+
     };
 
     // These indices are tied to MOVIE_COLUMNS.  If FORECAST_COLUMNS changes, these
     // must change.
-    static final int COL_MOVIE_ID = 0;
-    static final int COL_MOVIE_POSTER = 1;
-    static final int COL_MOVIE_TITLE = 2;
-    static final int COL_MOVIE_RELEASE_DATE = 3;
-    static final int COL_MOVIE_USER_RATING = 4;
-    static final int COL_MOVIE_SYNOPIS = 5;
-    static final int ID = 6;
+    static final int ID = 0;
+    static final int COL_MOVIE_ID = 1;
+    static final int COL_MOVIE_POSTER = 2;
+    static final int COL_MOVIE_TITLE = 3;
+    static final int COL_MOVIE_RELEASE_DATE = 4;
+    static final int COL_MOVIE_USER_RATING = 5;
+    static final int COL_MOVIE_SYNOPIS = 6;
 
-    public DetailFragment() {
+
+    public DetailActivityFragment() {
         setHasOptionsMenu(true);
+    }
+
+    public void displayTrailers() {
+        FetchTrailerTask fetchTrailers = new FetchTrailerTask();
+
+        fetchTrailers.execute(mMovieId);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         //Retrieve Trailers
-        FetchTrailerTask fetchTrailers = new FetchTrailerTask();
-        List<String> weekForecast = new ArrayList<String>(fetchTrailers.execute("100"));
-        mTrailerAdapter =
-                new ArrayAdapter<String>(
-                        getActivity(), // The current context (this activity)
-                        R.layout.fragment_detail, // The name of the layout ID.
-                        R.id.list_item_trailer_textview, // The ID of the textview to populate.
-                        weekForecast);
-
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        // Get a reference to the ListView, and attach this adapter to it.
-        ListView listView = (ListView) rootView.findViewById(R.id.trailer_list);
-        listView.setAdapter(mTrailerAdapter);
-
+        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         return inflater.inflate(R.layout.fragment_detail, container, false);
     }
 
@@ -144,12 +135,11 @@ public class DetailFragment extends android.support.v4.app.Fragment implements L
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.v(LOG_TAG, "In onCreateLoader");
         Intent intent = getActivity().getIntent();
         if (intent == null) {
             return null;
         }
-        Log.v("On create Loader", intent.getData().toString());
+
         // Now create and return a CursorLoader that will take care of
         // creating a Cursor for the data being displayed.
         return new CursorLoader(
@@ -164,13 +154,12 @@ public class DetailFragment extends android.support.v4.app.Fragment implements L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.v(LOG_TAG, "In onLoadFinished");
         if (!data.moveToFirst()) {
             return;
         }
-        Log.v("On finished loader", data.getString(COL_MOVIE_ID));
-        Log.i("movie id", Integer.toString(data.getInt(ID)));
         //data.moveToPosition(data.getInt(ID));
+        mMovieId = Integer.toString(data.getInt(COL_MOVIE_ID));
+
         String posterPath = data.getString(COL_MOVIE_POSTER);
 
         String title = data.getString(COL_MOVIE_TITLE);
@@ -188,7 +177,6 @@ public class DetailFragment extends android.support.v4.app.Fragment implements L
         Date d = new Date(00000000);
         try {
             d = date.parse(movieReleaseDate);
-            Log.v("test", d.toString());
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
@@ -211,6 +199,7 @@ public class DetailFragment extends android.support.v4.app.Fragment implements L
         Picasso.with(getContext()).load(
                 getString(R.string.poster_base_url) + posterPath).
                 into((ImageView) getView().findViewById(R.id.detail_poster_image));
+        displayTrailers();
 
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
@@ -224,163 +213,171 @@ public class DetailFragment extends android.support.v4.app.Fragment implements L
     }
 
 
-}
-public class FetchTrailerTask extends AsyncTask<String, Void, String[]> {
+    public class FetchTrailerTask extends AsyncTask<String, Void, String[]> {
 
-    private final String LOG_TAG = FetchTrailerTask.class.getSimpleName();
-
-
-    /**
-     * Take the String representing the complete forecast in JSON Format and
-     * pull out the data we need to construct the Strings needed for the wireframes.
-     * <p>
-     * Fortunately parsing is easy:  constructor takes the JSON string and converts it
-     * into an Object hierarchy for us.
-     */
-    private String[] getTrailerDataFromJson(String trailerJsonStr)
-            throws JSONException {
-
-        // These are the names of the JSON objects that need to be extracted.
-        final String TRAILER_RESULTS = "results";
-        final String TRAILER_LINK = "key";
-        final String TRAILER_NAME = "name";
-        final String TRAILER_WEBSITE = "site";
+        private final String LOG_TAG = FetchTrailerTask.class.getSimpleName();
 
 
-        JSONObject trailerJson = new JSONObject(trailerJsonStr);
-        JSONArray trailerArray = trailerJson.getJSONArray(TRAILER_RESULTS);
+        /**
+         * Take the String representing the complete forecast in JSON Format and
+         * pull out the data we need to construct the Strings needed for the wireframes.
+         * <p>
+         * Fortunately parsing is easy:  constructor takes the JSON string and converts it
+         * into an Object hierarchy for us.
+         */
+        private String[] getTrailerDataFromJson(String trailerJsonStr)
+                throws JSONException {
+
+            // These are the names of the JSON objects that need to be extracted.
+            final String TRAILER_RESULTS = "results";
+            final String TRAILER_LINK = "key";
+            final String TRAILER_NAME = "name";
+            final String TRAILER_WEBSITE = "site";
 
 
-        String[] resultStrs = new String[trailerArray.length()];
-        for (int i = 0; i < trailerArray.length(); i++) {
-            // Get the JSON object representing the day
-            JSONObject trailerObject = trailerArray.getJSONObject(i);
+            JSONObject trailerJson = new JSONObject(trailerJsonStr);
+            JSONArray trailerArray = trailerJson.getJSONArray(TRAILER_RESULTS);
 
-            // description is in a child array called "weather", which is 1 element long.
-            String trailerLink = trailerObject.getString(TRAILER_LINK);
-            String trailerName = trailerObject.getString(TRAILER_NAME);
-            String trailerWebsite = trailerObject.getString(TRAILER_WEBSITE);
 
-            resultStrs[i] = trailerName + " - " + "http://www." + trailerWebsite + "/" + trailerLink;
+            String[] resultStrs = new String[trailerArray.length()];
+            for (int i = 0; i < trailerArray.length(); i++) {
+                // Get the JSON object representing the day
+                JSONObject trailerObject = trailerArray.getJSONObject(i);
+
+                // description is in a child array called "weather", which is 1 element long.
+                String trailerLink = trailerObject.getString(TRAILER_LINK);
+                String trailerName = trailerObject.getString(TRAILER_NAME);
+                String trailerWebsite = trailerObject.getString(TRAILER_WEBSITE);
+
+                resultStrs[i] = trailerName; //+ " - " + "http://www." + trailerWebsite + ".com/" + trailerLink;
+            }
+
+            return resultStrs;
         }
 
+        @Override
+        protected String[] doInBackground(String... params) {
 
-        for (String s : resultStrs) {
-            Log.v(LOG_TAG, "Forecast entry: " + s);
-        }
-        return resultStrs;
-    }
-
-    @Override
-    protected String[] doInBackground(String... params) {
-
-        // If there's no zip code, there's nothing to look up.  Verify size of params.
-        if (params.length == 0) {
-            return null;
-        }
-
-        // These two need to be declared outside the try/catch
-        // so that they can be closed in the finally block.
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-
-        // Will contain the raw JSON response as a string.
-        String TrailerJsonStr = null;
-
-        String format = "json";
-        String units = "metric";
-        int numDays = 7;
-
-        try {
-            // Construct the URL for the OpenWeatherMap query
-            // Possible parameters are avaiable at OWM's forecast API page, at
-            // http://openweathermap.org/API#forecast
-            final String TMDB_BASE_URL =
-                    "http://api.themoviedb.org/3/discover/movie/";
-            final String ID_PARAM = params[0];
-            final String TRAILER_PARAM = "videos";
-            final String API_ID = "api_key";
-            final String REVIEWS_PARAM = "reviews";
-
-
-            Uri builtUri = Uri.parse(TMDB_BASE_URL).buildUpon()
-                    .appendPath(ID_PARAM)
-                    .appendPath(TRAILER_PARAM)
-                    .appendQueryParameter(API_ID, BuildConfig.MOVIE_DB_API_KEY)
-                    .build();
-
-            URL url = new URL(builtUri.toString());
-
-            Log.v(LOG_TAG, "Built URI " + builtUri.toString());
-
-            // Create the request to OpenWeatherMap, and open the connection
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-
-            // Read the input stream into a String
-            InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
-            if (inputStream == null) {
-                // Nothing to do.
+            // If there's no zip code, there's nothing to look up.  Verify size of params.
+            if (params.length == 0) {
                 return null;
             }
-            reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // But it does make debugging a *lot* easier if you print out the completed
-                // buffer for debugging.
-                buffer.append(line + "\n");
-            }
+            // These two need to be declared outside the try/catch
+            // so that they can be closed in the finally block.
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
 
-            if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
+            // Will contain the raw JSON response as a string.
+            String TrailerJsonStr = null;
+
+            String format = "json";
+            String units = "metric";
+            int numDays = 7;
+
+            try {
+                // Construct the URL for the OpenWeatherMap query
+                // Possible parameters are avaiable at OWM's forecast API page, at
+                // http://openweathermap.org/API#forecast
+                final String TMDB_BASE_URL =
+                        "http://api.themoviedb.org/3/movie/";
+                final String ID_PARAM = mMovieId;
+                final String TRAILER_PARAM = "videos";
+                final String API_ID = "api_key";
+                final String REVIEWS_PARAM = "reviews";
+
+
+                Uri builtUri = Uri.parse(TMDB_BASE_URL).buildUpon()
+                        .appendPath(ID_PARAM)
+                        .appendPath(TRAILER_PARAM)
+                        .appendQueryParameter(API_ID, BuildConfig.MOVIE_DB_API_KEY)
+                        .build();
+
+                URL url = new URL(builtUri.toString());
+
+                // Create the request to OpenWeatherMap, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // But it does make debugging a *lot* easier if you print out the completed
+                    // buffer for debugging.
+                    buffer.append(line + "\n");
+                }
+
+                if (buffer.length() == 0) {
+                    // Stream was empty.  No point in parsing.
+                    return null;
+                }
+                TrailerJsonStr = buffer.toString();
+
+
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error ", e);
+                // If the code didn't successfully get the weather data, there's no point in attemping
+                // to parse it.
                 return null;
-            }
-            TrailerJsonStr = buffer.toString();
-
-            Log.v(LOG_TAG, "Forecast string: " + TrailerJsonStr);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Error ", e);
-            // If the code didn't successfully get the weather data, there's no point in attemping
-            // to parse it.
-            return null;
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (final IOException e) {
-                    Log.e(LOG_TAG, "Error closing stream", e);
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
                 }
             }
-        }
 
-        try {
-            return getTrailerDataFromJson(TrailerJsonStr);
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
-        }
-
-        // This will only happen if there was an error getting or parsing the forecast.
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(String[] result) {
-        if (result != null) {
-            mTrailerAdapter.clear();
-            for (String trailerStr : result) {
-                mTrailerAdapter.add(trailerStr);
+            try {
+                return getTrailerDataFromJson(TrailerJsonStr);
+            } catch (JSONException e) {
+                Log.e(LOG_TAG, e.getMessage(), e);
+                e.printStackTrace();
             }
-            // New data is back from the server.  Hooray!
+
+            // This will only happen if there was an error getting or parsing the forecast.
+            return null;
         }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            mTrailerAdapter =
+                    new ArrayAdapter<String>(
+                            getActivity(), // The current context (this activity)
+                            R.layout.list_item_trailer, // The name of the layout ID.
+                            R.id.list_item_trailer_textview);
+//                            android.R.layout.simple_list_item_1);
+                            //weekForecast);
+
+
+            // Get a reference to the ListView, and attach this adapter to it.
+            ListView listView = (ListView) getActivity().findViewById(R.id.listview_trailer);
+            listView.setAdapter(mTrailerAdapter);
+            mTrailerAdapter.setNotifyOnChange(true);
+
+            if (result != null) {
+                mTrailerAdapter.clear();
+                for (String trailerStr : result) {
+                    mTrailerAdapter.add(trailerStr);
+                }
+            }
+
+        }
+
+
     }
-
-
 }
