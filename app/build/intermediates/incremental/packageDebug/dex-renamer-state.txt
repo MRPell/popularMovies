@@ -1,7 +1,7 @@
-#Mon Oct 03 15:03:30 MDT 2016
-base.0=C\:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_6a5bd4573d206b42567516010ba8c0f64d8f627a
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=C\:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_ba5ae3014ed2927d9a10ec789c9eaa7c53e03d84\\classes.dex
-base.1=C\:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_ba5ae3014ed2927d9a10ec789c9eaa7c53e03d84
-file.0=C\:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_6a5bd4573d206b42567516010ba8c0f64d8f627a\\classes.dex
+#Wed Oct 12 17:32:19 MDT 2016
+base.0=C\:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_9795c8c2696076710a9fcd100638c3d970fd18d8
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=C\:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_dbdf4d8615a2072a39480869bac7c58aac42e875\\classes.dex
+base.1=C\:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_dbdf4d8615a2072a39480869bac7c58aac42e875
+file.0=C\:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_9795c8c2696076710a9fcd100638c3d970fd18d8\\classes.dex

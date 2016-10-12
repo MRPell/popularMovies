@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -39,7 +40,14 @@
                     style="@style/release_date_text_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="4dp" />
+                    android:paddingBottom="0dp" />
+
+                <TextView
+                    android:id="@+id/detail_running_time_text"
+                    style="@style/running_time_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"/>
 
 
                 <TextView
@@ -55,6 +63,7 @@
             style="@style/synopsis_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="16dp" />
@@ -64,16 +73,42 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:text="@string/trailers_header" />
+            android:paddingLeft="16dp"
+            android:paddingTop="4dp"
+            android:text="@string/trailers_header"
+            style="@style/trailer_header_text_style"/>
 
-        <ListView
+        <com.example.android.popularmovies.NonScrollListView
             android:id="@+id/listview_trailer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:divider="@color/colorPrimaryDark"
-            android:isScrollContainer="false" />
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <View
+            style="@style/Divider"
+            android:padding="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="4dp"
+            android:text="@string/reviews_header"
+            style="@style/review_header_text_style"/>
+
+        <com.example.android.popularmovies.NonScrollListView
+            android:id="@+id/listview_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
 
     </LinearLayout>
+
 </ScrollView>

@@ -293,6 +293,7 @@
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="content_authority">com.example.android.popularmovies.app</string>
     <string name="poster_base_url">http://image.tmdb.org/t/p/w185</string>
+    <string name="reviews_header">Reviews:</string>
     <string name="settings_sort_label">Sort Movies By</string>
     <string name="sort_method_key">Sort Method</string>
     <string name="sort_pref_default">popular.desc</string>
@@ -1750,10 +1751,26 @@
         <item name="android:typeface">sans</item>
         <item name="android:textColor">@android:color/darker_gray</item>
     </style>
+    <style name="review_header_text_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="running_time_text_style">
+        <item name="android:textSize">18sp</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
     <style name="synopsis_text_style">
         <item name="android:textSize">12sp</item>
         <item name="android:typeface">sans</item>
         <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+    <style name="trailer_header_text_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
     <style name="user_rating_text_style">
         <item name="android:textSize">12sp</item>

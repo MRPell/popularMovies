@@ -28,6 +28,7 @@
     <string name="sync_account_type">popularmovies.example.com</string>
     <!--details screen-->
     <string name="trailers_header">Trailers:</string>
+    <string name="reviews_header">Reviews:</string>
 
 
 </resources>

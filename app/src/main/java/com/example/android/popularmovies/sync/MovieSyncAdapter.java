@@ -125,6 +125,9 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                     .build();
             Log.d(LOG_TAG, builtUri.toString());
             URL url = new URL(builtUri.toString());
+            //runtime
+            //https://api.themoviedb.org/3/movie/271110?api_key=cd93405233ea65dd6b464a88cbc57515
+
 
             // Create the request to TMDB, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
