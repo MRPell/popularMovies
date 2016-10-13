@@ -53,6 +53,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
     ArrayAdapter<String> mTrailerAdapter;
     private String mMovieId;
     private String mShareMovieKey;
+    private String mMovieTitle;
 
     private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
 
@@ -95,9 +96,10 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         FetchReviewsTask fetchReviews = new FetchReviewsTask();
         FetchRuntimeTask fetchRuntime = new FetchRuntimeTask();
 
-        fetchTrailers.execute(mMovieId);
+
         fetchReviews.execute(mMovieId);
         fetchRuntime.execute(mMovieId);
+        fetchTrailers.execute(mMovieId);
 
     }
 
@@ -123,16 +125,26 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
 
         // If onLoadFinished happens before this, we can go ahead and set the share intent now.
-        if (mMovieDetails != null) {
-            mShareActionProvider.setShareIntent(createShareMovieIntent());
-        }
+
     }
 
     private Intent createShareMovieIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, mMovieDetails.get(mShareMovieKey) + MOVIE_SHARE_HASHTAG);
+
+        if (mMovieDetails != null && mShareMovieKey != null) {
+            //Log.d(LOG_TAG, mShareMovieKey);
+            Log.d(LOG_TAG, mMovieDetails.get(mShareMovieKey).toString());
+
+
+            shareIntent.putExtra(Intent.EXTRA_TEXT,
+                    mMovieTitle +
+                    "-" +
+                    mShareMovieKey +
+                    ": " +
+                    mMovieDetails.get(mShareMovieKey).toString() + MOVIE_SHARE_HASHTAG);
+        }
         return shareIntent;
     }
 
@@ -141,7 +153,6 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }
-
 
 
     @Override
@@ -173,7 +184,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
 
         String posterPath = data.getString(COL_MOVIE_POSTER);
 
-        String title = data.getString(COL_MOVIE_TITLE);
+        mMovieTitle = data.getString(COL_MOVIE_TITLE);
 
         String releaseDate = data.getString(COL_MOVIE_RELEASE_DATE);
 
@@ -196,9 +207,15 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         int year = cal.get(Calendar.YEAR);
 
 
+        //populate image view with movie poster
+        Picasso.with(getContext()).load(
+                getString(R.string.poster_base_url) + posterPath).
+                into((ImageView) getView().findViewById(R.id.detail_poster_image));
+        displayTrailers();
+
         //set all text views in the activity with movie data
         TextView detailTextView1 = (TextView) getView().findViewById(R.id.detail_title_text);
-        detailTextView1.setText(title);
+        detailTextView1.setText(mMovieTitle);
 
         TextView detailTextView2 = (TextView) getView().findViewById(R.id.detail_synopsis_text);
         detailTextView2.setText(synopsis);
@@ -206,17 +223,13 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         detailTextView3.setText(userRating + "/10");
         TextView detailTextView4 = (TextView) getView().findViewById(R.id.detail_release_date_text);
         detailTextView4.setText(Integer.toString(year));
-        //populate image view with movie poster
-        Picasso.with(getContext()).load(
-                getString(R.string.poster_base_url) + posterPath).
-                into((ImageView) getView().findViewById(R.id.detail_poster_image));
-        displayTrailers();
 
 
-        // If onCreateOptionsMenu has already happened, we need to update the share intent now.
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(createShareMovieIntent());
-        }
+
+//        // If onCreateOptionsMenu has already happened, we need to update the share intent now.
+//        if (mShareActionProvider != null) {
+//            mShareActionProvider.setShareIntent(createShareMovieIntent());
+//        }
     }
 
     @Override
@@ -264,7 +277,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
                 //"http://www.youtube.com/watch?v=cxLG2wtE7TM")
                 //"http://www." + trailerWebsite + ".com/watch?v=" + trailerLink;
 
-                resultStrs[i] = trailerName + "-"
+                resultStrs[i] = trailerName + "~"
                         + "http://www." + trailerWebsite + ".com/watch?v=" + trailerLink;
             }
 
@@ -409,16 +422,24 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
             if (result != null) {
                 mTrailerAdapter.clear();
                 mMovieDetails.clear();
-                String shareKey[] = result[0].split("-");
+                String shareKey[] = result[0].split("~");
+
+
+                Log.d(LOG_TAG + " result [0] ", result[0]);
+
+                Log.d(LOG_TAG + " sharekey [0] ", shareKey[0]);
+                Log.d(LOG_TAG + " sharekey [1] ", shareKey[1]);
                 mShareMovieKey = shareKey[0];
+                Log.d(LOG_TAG + "Share Key is:::", mShareMovieKey);
 
                 for (String trailerStr : result) {
-                    String movieInfo[] = trailerStr.split("-");
+                    String movieInfo[] = trailerStr.split("~");
                     Log.d("MOVIE INFO", movieInfo[0]);
                     Log.d("MOVIE INFO", movieInfo[1]);
                     mMovieDetails.put(movieInfo[0], movieInfo[1]);
                     mTrailerAdapter.add(movieInfo[0]);
                 }
+                mShareActionProvider.setShareIntent(createShareMovieIntent());
             }
 
         }

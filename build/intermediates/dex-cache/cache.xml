@@ -12,6 +12,33 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="86c8a782e1b83d5b5a84b117a96d88b4ad271cf7">
+        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_dbdf4d8615a2072a39480869bac7c58aac42e875\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\mrpel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.2.1\support-annotations-23.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
+        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.2.1_58ac2b4339ecbc90dedc22268ac468ac9324aff8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\design\23.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="72961d8b453b46e277702f18de9d210bc019e36e">
+        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.2.1_148385b1442b55d41e24df22d1d2a7550d616240\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\jars\libs\internal_impl-23.2.1.jar"
         jumboMode="true"
         optimize="true"
@@ -21,20 +48,11 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="c1a9e9a3e60e9caf8cc54c7f11d5519334932184">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_dbdf4d8615a2072a39480869bac7c58aac42e875\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="d5f65e5b376519925a79681913725bff17af42e3">
+        sha1="6ff8f4bd04f1b403e64dce3c897f7db8e3a3ecb1">
         <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_9795c8c2696076710a9fcd100638c3d970fd18d8\classes.dex" />
     </item>
     <item
@@ -63,24 +81,6 @@
         revision="23.0.2"
         sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
         <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.2.1_215bd1c71185f3971317a3eaf289403870ec8921\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\mrpel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.2.1\support-annotations-23.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.2.1_58ac2b4339ecbc90dedc22268ac468ac9324aff8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\design\23.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="72961d8b453b46e277702f18de9d210bc019e36e">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.2.1_148385b1442b55d41e24df22d1d2a7550d616240\classes.dex" />
     </item>
     <item
         is-multidex="true"
