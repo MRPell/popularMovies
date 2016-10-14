@@ -3,102 +3,102 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="e3885783ff8926ed9e2fdcd16816c2e1e73e7aee">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.2.1_50962cca458a0a8b55b2dda5250f4cbc00d97c58\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\jars\libs\internal_impl-23.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.2.1_ec9644a35a7ee39302b896383510677e78459fa8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="c1a9e9a3e60e9caf8cc54c7f11d5519334932184">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_dbdf4d8615a2072a39480869bac7c58aac42e875\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="d5f65e5b376519925a79681913725bff17af42e3">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_9795c8c2696076710a9fcd100638c3d970fd18d8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.2.1\jars\classes.jar"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
         sha1="3469cb457f10f74c28cbc05f069b6c894f6cbdd0">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.2.1_4d9d2c9e650e65ed29f6c6fc072b1b05c6040cc3\classes.dex" />
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.2.1_0797e97953fc57876f1d03302a57fd8ea697f052\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\mrpel\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_331d6b9ad5ead6d3a99b2bf7dfb2e51b5f67a904\classes.dex" />
+        sha1="5eadb9e067c8719bb8109c8899082e897b9afe93">
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6a5bd4573d206b42567516010ba8c0f64d8f627a\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.2.1_215bd1c71185f3971317a3eaf289403870ec8921\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\mrpel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.2.1\support-annotations-23.2.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.2"
-        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.2.1_58ac2b4339ecbc90dedc22268ac468ac9324aff8\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\design\23.2.1\jars\classes.jar"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\exploded-aar\com.android.support\design\23.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
         sha1="72961d8b453b46e277702f18de9d210bc019e36e">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.2.1_148385b1442b55d41e24df22d1d2a7550d616240\classes.dex" />
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.2.1_e121abbb8776353a53c1d4010b2ee0b971533a6e\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\jars\classes.jar"
+        jar="C:\Users\MRPell\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.2.1\support-annotations-23.2.1.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
-        sha1="673d77a5bbddd766037f088e775df525c46407f0">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.2.1_22d0bd18a8ad721085bf27af17f61f3c9a46d477\classes.dex" />
+        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.2.1_d1a78fc2167a62f9cd083a7a9d3c55a7cc95b78e\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\jars\classes.jar"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="fddebcac2f66abb1a0038d53ff0715a9e7b55b56">
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_ba5ae3014ed2927d9a10ec789c9eaa7c53e03d84\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\jars\libs\internal_impl-23.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.2.1_830d20ddcb58e59579f3a37fb31af452b11f2a31\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="23.0.2"
         sha1="3be474b1b21b31cf2fa93fe6bd641ae108d96452">
-        <dex dex="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.2.1_3c53842ea09b4d987651d71af40b55690a8b10b1\classes.dex" />
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.2.1_b9bdb71dcb736d8a3f27892e600d1733a91693e4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="673d77a5bbddd766037f088e775df525c46407f0">
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.2.1_bb4ecc037614b4405359f48a3dc3fad8e211227a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.2.1_c2743459a9743831ccba223da34bc47122781f66\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MRPell\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\picasso-2.5.2_a8f0cb23a1a6cf6ec5237035fad4afdc7b607ee9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.2"
+        sha1="e3885783ff8926ed9e2fdcd16816c2e1e73e7aee">
+        <dex dex="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.2.1_808c06c5ff12612a807bab67f9a5f38ea8bf739c\classes.dex" />
     </item>
 
 </items>

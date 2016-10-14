@@ -54,7 +54,19 @@
                     android:id="@+id/detail_rating_text"
                     style="@style/user_rating_text_style"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"/>
+
+                <Button
+                    android:id="@+id/favorite_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/favorites_button_style"
+                    android:text="@string/favorites_button"
+                    android:onClick="rename"
+                    android:minHeight="0dp"
+                    android:minWidth="5dp"
+                    />
             </LinearLayout>
         </LinearLayout>
 

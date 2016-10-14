@@ -1,14 +1,14 @@
 [
     {
-        "merged": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\res\\merged\\debug\\menu\\moviefragment.xml",
-        "source": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\src\\main\\res\\menu\\moviefragment.xml"
+        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\menu\\moviefragment.xml",
+        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\menu\\moviefragment.xml"
     },
     {
-        "merged": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
-        "source": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\src\\main\\res\\menu\\menu_main.xml"
+        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\menu\\menu_main.xml"
     },
     {
-        "merged": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\res\\merged\\debug\\menu\\detailfragment.xml",
-        "source": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\src\\main\\res\\menu\\detailfragment.xml"
+        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\menu\\detailfragment.xml",
+        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\menu\\detailfragment.xml"
     }
 ]
