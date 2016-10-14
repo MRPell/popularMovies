@@ -212,6 +212,7 @@ sortOrder	String: How the rows in the cursor should be sorted. If null then the 
         int rowsDeleted;
         // this makes delete all rows return the number of rows deleted
         if (null == selection) selection = "1";
+
         switch (match) {
             case MOVIE:
                 rowsDeleted = db.delete(
@@ -228,6 +229,7 @@ sortOrder	String: How the rows in the cursor should be sorted. If null then the 
         if (rowsDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
+        Log.d(LOG_TAG + "Deleting rows: ", Integer.toString(rowsDeleted));
         return rowsDeleted;
     }
 

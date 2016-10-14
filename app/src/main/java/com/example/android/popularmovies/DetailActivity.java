@@ -2,8 +2,6 @@ package com.example.android.popularmovies;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.widget.Button;
 
 import static com.example.android.popularmovies.R.id.container;
 
@@ -27,10 +25,7 @@ public class DetailActivity extends ActionBarActivity {
         }
     }
 
-    public void rename(View view){
-        final Button button = (Button) view.findViewById(R.id.favorite_button);
-        button.setText("Favorite");
-    }
+
 
 
 

@@ -68,6 +68,7 @@ public class MovieContract {
         public static final String COLUMN_SYNOPSIS = "synopsis";
         public static final String COLUMN_TRAILER_LINK = "trailer";
         public static final String COLUMN_USER_REVIEWS = "user_reviews";
+        public static final String COLUMN_FAVORITE = "favorite";
 
         public static Uri buildMovieUri(long id) {
             Uri returnUri;

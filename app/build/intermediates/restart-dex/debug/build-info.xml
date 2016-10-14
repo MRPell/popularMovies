@@ -5,47 +5,33 @@
     density="xhdpi"
     format="8"
     plugin-version="2.2.1"
-    timestamp="87465658569090"
+    timestamp="148620941045199"
     token="7707650773724458600"
-    verifier="COMPATIBLE" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="1718" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="1604" />
     <task
         name="verifier"
-        duration="0" />
+        duration="362" />
 
     <artifact
-        location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-        type="RESOURCES" />
+        location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
 
     <build
-        timestamp="86825408811093"
+        timestamp="148620941045199"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
-    </build>
-    <build
-        timestamp="87134155729732"
-        verifier="METHOD_DELETED" >
-        <artifact
-            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
-            type="DEX" />
-    </build>
-    <build
-        timestamp="87465658569090"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-            type="RESOURCES" />
     </build>
 
 </instant-run>

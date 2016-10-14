@@ -1,5 +1,6 @@
 package com.example.android.popularmovies;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -54,6 +55,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
     ArrayAdapter<String> mTrailerAdapter;
     private String mMovieId;
     private String mShareMovieKey;
+    private boolean mIsFavorite;
 
     private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
 
@@ -72,7 +74,8 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
             MovieContract.MovieEntry.COLUMN_MOVIE_TITLE,
             MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
             MovieContract.MovieEntry.COLUMN_USER_RATING,
-            MovieContract.MovieEntry.COLUMN_SYNOPSIS
+            MovieContract.MovieEntry.COLUMN_SYNOPSIS,
+            MovieContract.MovieEntry.COLUMN_FAVORITE
 
     };
 
@@ -85,6 +88,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
     static final int COL_MOVIE_RELEASE_DATE = 4;
     static final int COL_MOVIE_USER_RATING = 5;
     static final int COL_MOVIE_SYNOPIS = 6;
+    static final int COL_MOVIE_FAVORITE = 7;
 
 
     public DetailActivityFragment() {
@@ -102,13 +106,52 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //Retrieve Trailers
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        return inflater.inflate(R.layout.fragment_detail, container, false);
+
+        Button button = (Button) rootView.findViewById(R.id.favorite_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Button button = (Button) v.findViewById(R.id.favorite_button);
+
+//            }            // do something
+                if (mMovieId != null) {
+
+                    String strFilter = MovieContract.MovieEntry.COLUMN_MOVIE_ID +
+                            "=" +
+                            mMovieId;
+
+                    ContentValues args = new ContentValues();
+                    if(!mIsFavorite) {
+                        args.put(MovieContract.MovieEntry.COLUMN_FAVORITE, 1);
+                        mIsFavorite = true;
+                        button.setText("Remove From\nFavorites");
+                    }
+                    else{
+                        args.put(MovieContract.MovieEntry.COLUMN_FAVORITE, 0);
+                        mIsFavorite = false;
+                        button.setText("Mark as\nFavorite");
+                    }
+                    Log.d(LOG_TAG + "Favorites Button: ", mMovieId);
+                    getContext().getContentResolver().update(MovieContract.MovieEntry.CONTENT_URI,
+                            args,
+                            strFilter,
+                            null);
+
+                    Log.d(LOG_TAG + "Favorites Button: ", mMovieId);
+                }
+
+            }
+        });
+        //Retrieve Trailers
+
+        return rootView;
 
     }
 
@@ -138,12 +181,12 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         return shareIntent;
     }
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }
-
 
 
     @Override
@@ -182,6 +225,14 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         String userRating = data.getString(COL_MOVIE_USER_RATING);
 
         String synopsis = data.getString(COL_MOVIE_SYNOPIS);
+
+
+        if(data.getInt(COL_MOVIE_FAVORITE)== 1){
+            mIsFavorite = true;
+        }
+        else{
+            mIsFavorite = false;
+        }
 
 
         //format string into year only

@@ -229,6 +229,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                 movieValues.put(MovieContract.MovieEntry.COLUMN_SYNOPSIS, synopsis);
                 movieValues.put(MovieContract.MovieEntry.COLUMN_USER_RATING, userRating);
                 movieValues.put(MovieContract.MovieEntry.COLUMN_RELEASE_DATE, releaseDate);
+                movieValues.put(MovieContract.MovieEntry.COLUMN_FAVORITE, 0);
 
                 cVVector.add(movieValues);
             }
@@ -236,9 +237,11 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
             //****************fix delete **********************
             //check this for accuracy
             // delete old data so we don't build up an endless history
+            String[] rowsToDelete = new String[1];
+            rowsToDelete[0] = "0";
             getContext().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI,
-                    null,
-                    null);
+                    MovieContract.MovieEntry.COLUMN_FAVORITE + "= ?",
+                    rowsToDelete);
 //                    MovieContract.MovieEntry._ID + "<= ?", new String[] {"10"});
 
             int inserted = 0;
