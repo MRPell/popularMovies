@@ -41,19 +41,19 @@ public class MovieProvider extends ContentProvider {
                     "." + MovieContract.MovieEntry._ID + " = ? ";
 
     //get's all movies
-    private Cursor getMovies(Uri uri, String[] projection, String selection) {
+    private Cursor getMovies(Uri uri, String[] projection, String selection, String[] selectionArgs) {
 /*
 Parameters
 uri	Uri: The URI to query. This will be the full URI sent by the client; if the client is requesting a specific record, the URI will end in a record number that the implementation should parse and add to a WHERE or HAVING clause, specifying that _id value.
 projection	String: The list of columns to put into the cursor. If null all columns are included.
-selection	String: A selection criteria to apply when filtering rows. If null then all rows are included.
+selectio\n	String: A selection criteria to apply when filtering rows. If null then all rows are included.
 selectionArgs	String: You may include ?s in selection, which will be replaced by the values from selectionArgs, in order that they appear in the selection. The values will be bound as Strings.
 sortOrder	String: How the rows in the cursor should be sorted. If null then the provider is free to define the sort order.
  */
         return sMovieQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection, //which columns to return
                 selection,  //selection where clause
-                null,       //selectionArgs where clasue value subsitution
+                selectionArgs,       //selectionArgs where clasue value subsitution
                 null,       //groupBy
                 null,       //having
                 null   //sort order
@@ -61,11 +61,15 @@ sortOrder	String: How the rows in the cursor should be sorted. If null then the 
     }
 
     //gets a specific movie
-    private Cursor getMovie(Uri uri, String[] projection) {
+    private Cursor getMovie(Uri uri, String[] projection, String selection, String[] selectionArgs) {
 
         //movie to be selected by cursor
-        String selection = sMovieSelection;
         String movieId = MovieContract.MovieEntry.getMovieIdFromUri(uri);
+        if(selection == null) {
+            selection = sMovieSelection;
+            selectionArgs = new String[]{movieId};
+        }
+
 
         Log.i("get weather by l and c", projection[0] + "---" + selection + "---" +
                 movieId);
@@ -80,7 +84,7 @@ sortOrder	String: How the rows in the cursor should be sorted. If null then the 
         return sMovieQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection, //which columns to return
                 selection,  //selection where clause
-                new String[]{movieId},       //selectionArgs where clause value substitution
+                selectionArgs,       //selectionArgs where clause value substitution
                 null,       //groupBy
                 null,       //having
                 null   //sort order
@@ -155,12 +159,12 @@ sortOrder	String: How the rows in the cursor should be sorted. If null then the 
 
             case MOVIE: {
                 Log.i("MOVIE", "hi");
-                retCursor = getMovie(uri, projection);
+                retCursor = getMovie(uri, projection, selection, selectionArgs);
             }
             break;
             //authority/movie
             case MOVIES: {
-                retCursor = getMovies(uri, projection, selection);
+                retCursor = getMovies(uri, projection, selection, selectionArgs);
                 break;
             }
             default:

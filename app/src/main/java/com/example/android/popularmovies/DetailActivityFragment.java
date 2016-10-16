@@ -38,11 +38,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * Created by MRPell on 10/1/2016.
@@ -55,7 +51,6 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
     ArrayAdapter<String> mTrailerAdapter;
     private String mMovieId;
     private String mShareMovieKey;
-    private boolean mIsFavorite;
 
     private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
 
@@ -112,13 +107,11 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+        final Button button = (Button) rootView.findViewById(R.id.favorite_button);
 
-        Button button = (Button) rootView.findViewById(R.id.favorite_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final Button button = (Button) v.findViewById(R.id.favorite_button);
 
 //            }            // do something
                 if (mMovieId != null) {
@@ -128,25 +121,18 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
                             mMovieId;
 
                     ContentValues args = new ContentValues();
-                    if(!mIsFavorite) {
-                        args.put(MovieContract.MovieEntry.COLUMN_FAVORITE, 1);
-                        mIsFavorite = true;
-                        button.setText("Remove From\nFavorites");
-                    }
-                    else{
+                    if (Utilities.isFavorite(getContext(), mMovieId)) {
                         args.put(MovieContract.MovieEntry.COLUMN_FAVORITE, 0);
-                        mIsFavorite = false;
-                        button.setText("Mark as\nFavorite");
+                    } else {
+                        args.put(MovieContract.MovieEntry.COLUMN_FAVORITE, 1);
                     }
-                    Log.d(LOG_TAG + "Favorites Button: ", mMovieId);
                     getContext().getContentResolver().update(MovieContract.MovieEntry.CONTENT_URI,
                             args,
                             strFilter,
                             null);
-
-                    Log.d(LOG_TAG + "Favorites Button: ", mMovieId);
                 }
-
+                setButtonText(button);
+                Log.d(LOG_TAG + "Button Movie ID: ", mMovieId);
             }
         });
         //Retrieve Trailers
@@ -155,6 +141,18 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
 
     }
 
+
+    public void setButtonText(Button button) {
+        if (mMovieId != null) {
+            Log.d(LOG_TAG +"mMovieId SetButton", "set Button Text");
+            Log.d(LOG_TAG + "IS FAVORITE? ", Boolean.toString(Utilities.isFavorite(getContext(), mMovieId)));
+            if (Utilities.isFavorite(getContext(), mMovieId)) {
+                button.setText("Remove From\nFavorites");
+            } else {
+                button.setText("Mark as\nFavorite");
+            }
+        }
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -226,27 +224,20 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
 
         String synopsis = data.getString(COL_MOVIE_SYNOPIS);
 
-
-        if(data.getInt(COL_MOVIE_FAVORITE)== 1){
-            mIsFavorite = true;
-        }
-        else{
-            mIsFavorite = false;
-        }
-
+        setButtonText((Button) getActivity().findViewById(R.id.favorite_button));
 
         //format string into year only
-        String movieReleaseDate = releaseDate;
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        Date d = new Date(00000000);
-        try {
-            d = date.parse(movieReleaseDate);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(d);
-        int year = cal.get(Calendar.YEAR);
+//        String movieReleaseDate = releaseDate;
+//        SimpleDateFormat date = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+//        Date d = new Date(00000000);
+//        try {
+//            d = date.parse(movieReleaseDate);
+//        } catch (java.text.ParseException e) {
+//            e.printStackTrace();
+//        }
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(d);
+//        int year = cal.get(Calendar.YEAR);
 
 
         //set all text views in the activity with movie data
@@ -258,7 +249,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         TextView detailTextView3 = (TextView) getView().findViewById(R.id.detail_rating_text);
         detailTextView3.setText(userRating + "/10");
         TextView detailTextView4 = (TextView) getView().findViewById(R.id.detail_release_date_text);
-        detailTextView4.setText(Integer.toString(year));
+        detailTextView4.setText(Utilities.formatReleaseDate(releaseDate));
         //populate image view with movie poster
         Picasso.with(getContext()).load(
                 getString(R.string.poster_base_url) + posterPath).
@@ -270,6 +261,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(createShareMovieIntent());
         }
+        data.close();
     }
 
     @Override
@@ -317,7 +309,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
                 //"http://www.youtube.com/watch?v=cxLG2wtE7TM")
                 //"http://www." + trailerWebsite + ".com/watch?v=" + trailerLink;
 
-                resultStrs[i] = trailerName + "-"
+                resultStrs[i] = trailerName + "---"
                         + "http://www." + trailerWebsite + ".com/watch?v=" + trailerLink;
             }
 
@@ -462,7 +454,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
             if (result != null) {
                 mTrailerAdapter.clear();
                 mMovieDetails.clear();
-                String shareKey[] = result[0].split("-");
+                String shareKey[] = result[0].split("---");
                 mShareMovieKey = shareKey[0];
 
                 for (String trailerStr : result) {

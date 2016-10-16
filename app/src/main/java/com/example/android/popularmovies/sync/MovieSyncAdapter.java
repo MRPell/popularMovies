@@ -17,7 +17,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.android.popularmovies.BuildConfig;
+import com.example.android.popularmovies.MainActivityFragment;
 import com.example.android.popularmovies.R;
+import com.example.android.popularmovies.Utilities;
 import com.example.android.popularmovies.data.MovieContract;
 
 import org.json.JSONArray;
@@ -44,6 +46,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int MOVIE_NOTIFICATION_ID = 3004;
+    String mSortPref;
 
 
     /**
@@ -72,7 +75,6 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 //    private static final int INDEX_SYNOPSIS = 3;
 //    private static final int INDEX_USER_RATING = 4;
 //    private static final int INDEX_RELEASE_DATE = 5;
-
     public MovieSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
@@ -88,95 +90,113 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
         // Will contain the raw JSON response as a string.
         String movieJsonStr = null;
 
-        try {
-            // Construct the URL for TMDB query
-            // Possible parameters are avaiable at TMDB API page, at
-            // https://www.themoviedb.org/documentation/api
-            final String TMDB_BASE_URL =
-                    "http://api.themoviedb.org/3/discover/movie/";
-
-            //get sort preference from settings selection
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String sortPref = sharedPref.getString(
-                    "Sort Method",
-                    "popularity.desc");
-
-            //set minimum number of votes required to show movie so that movies
-            //without strong rating verification aren't displayed
-            //eventually this should be made a default user setting that can be switched off
-            String MIN_VOTES = "vote_count.gte";
-            String numVotes;
-            if(sortPref.equals("vote_average.desc")){
-                numVotes = "50";
-            }
-            else
-            {
-                numVotes = "0";
-            }
-
-            final String API_ID = "api_key";
-            final String SORT_TYPE = "sort_by";
-
-            //api call. Add api key to gradle properties
-            Uri builtUri = Uri.parse(TMDB_BASE_URL).buildUpon()
-                    .appendQueryParameter(MIN_VOTES, numVotes)
-                    .appendQueryParameter(SORT_TYPE, sortPref)
-                    .appendQueryParameter(API_ID, BuildConfig.MOVIE_DB_API_KEY)
-                    .build();
-            Log.d(LOG_TAG, builtUri.toString());
-            URL url = new URL(builtUri.toString());
-            //runtime
-            //https://api.themoviedb.org/3/movie/271110?api_key=cd93405233ea65dd6b464a88cbc57515
+        SharedPreferences SharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String mSortPref = SharedPref.getString(
+                "Sort Method",
+                "popularity.desc");
 
 
-            // Create the request to TMDB, and open the connection
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
+        Log.d(LOG_TAG + "Shared Prefs = ", mSortPref);
+        if (!Utilities.isFavoriteSortPref(getContext())){
+        //if (!mSortPref.equals("favorites")) {
+            Log.d(LOG_TAG, "starting sync");
 
-            // Read the input stream into a String
-            InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
-            if (inputStream == null) {
-                // Nothing to do.
-                return;
-            }
-            reader = new BufferedReader(new InputStreamReader(inputStream));
+            try {
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
-                // But it does make debugging a *lot* easier if you print out the completed
-                // buffer for debugging.
-                buffer.append(line + "\n");
-            }
+                // Construct the URL for TMDB query
+                // Possible parameters are avaiable at TMDB API page, at
+                // https://www.themoviedb.org/documentation/api
+                final String TMDB_BASE_URL =
+                        "http://api.themoviedb.org/3/discover/movie/";
 
-            if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
-                return;
-            }
-            movieJsonStr = buffer.toString();
-            Log.v(LOG_TAG, movieJsonStr);
-            getMovieDataFromJson(movieJsonStr);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Error ", e);
-            // If the code didn't successfully get the weather data,
-            // there's no point in attemping to parse it.
-        } catch (JSONException e) {
-            Log.e(LOG_TAG, e.getMessage(), e);
-            e.printStackTrace();
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (final IOException e) {
-                    Log.e(LOG_TAG, "Error closing stream", e);
+                //get sort preference from settings selection
+
+
+                //set minimum number of votes required to show movie so that movies
+                //without strong rating verification aren't displayed
+                //eventually this should be made a default user setting that can be switched off
+                String MIN_VOTES = "vote_count.gte";
+                String numVotes;
+                if (mSortPref.equals("vote_average.desc")) {
+                    numVotes = "50";
+                } else {
+                    numVotes = "0";
                 }
+
+                final String API_ID = "api_key";
+                final String SORT_TYPE = "sort_by";
+
+                //api call. Add api key to gradle properties
+                Uri builtUri = Uri.parse(TMDB_BASE_URL).buildUpon()
+                        .appendQueryParameter(MIN_VOTES, numVotes)
+                        .appendQueryParameter(SORT_TYPE, mSortPref)
+                        .appendQueryParameter(API_ID, BuildConfig.MOVIE_DB_API_KEY)
+                        .build();
+                Log.d(LOG_TAG, builtUri.toString());
+                URL url = new URL(builtUri.toString());
+                //runtime
+                //https://api.themoviedb.org/3/movie/271110?api_key=cd93405233ea65dd6b464a88cbc57515
+
+
+                // Create the request to TMDB, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // But it does make debugging a *lot* easier if you print out the completed
+                    // buffer for debugging.
+                    buffer.append(line + "\n");
+                }
+
+                if (buffer.length() == 0) {
+                    // Stream was empty.  No point in parsing.
+                    return;
+                }
+                movieJsonStr = buffer.toString();
+                Log.v(LOG_TAG, movieJsonStr);
+                getMovieDataFromJson(movieJsonStr);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error ", e);
+                // If the code didn't successfully get the weather data,
+                // there's no point in attemping to parse it.
+            } catch (JSONException e) {
+                Log.e(LOG_TAG, e.getMessage(), e);
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+
             }
         }
+        else if(Utilities.isFavoriteSortPref(getContext())) {
+            Log.d(LOG_TAG, " delete non favorites" );
+            String[] rowsToDelete = new String[1];
+            rowsToDelete[0] = "0";
+            getContext().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI,
+                    MovieContract.MovieEntry.COLUMN_FAVORITE + "= ?",
+                    rowsToDelete);
+        }
+        Log.d(LOG_TAG + "sort pref", mSortPref);
         return;
     }
 

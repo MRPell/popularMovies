@@ -41,7 +41,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             MovieContract.MovieEntry.COLUMN_MOVIE_TITLE,
             MovieContract.MovieEntry.COLUMN_RELEASE_DATE,
             MovieContract.MovieEntry.COLUMN_USER_RATING,
-            MovieContract.MovieEntry.COLUMN_SYNOPSIS
+            MovieContract.MovieEntry.COLUMN_SYNOPSIS,
+            MovieContract.MovieEntry.COLUMN_FAVORITE
     };
 
     // These indices are tied to MOVIE_COLUMNS.  If FORECAST_COLUMNS changes, these
@@ -52,6 +53,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     static final int COL_MOVIE_RELEASE_DATE = 3;
     static final int COL_MOVIE_USER_RATING = 4;
     static final int COL_MOVIE_SYNOPIS = 5;
+    static final int COL_MOVIE_FAVORITE = 6;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -74,6 +76,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         // Add this line in order for this fragment to handle menu events.
         setHasOptionsMenu(true);
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -197,21 +200,44 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             // dates after or including today.
 
             // Sort order:  Ascending, by date.
+//            SharedPreferences SharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+//            String sortPref = SharedPref.getString(
+//                    "Sort Method",
+//                    "popularity.desc");
             String sortOrder = MovieContract.MovieEntry.COLUMN_MOVIE_ID + " ASC";
 
             Uri movieUri = MovieContract.MovieEntry.buildMovieUri(-1);
 
-            Log.d("cursor loader uri", movieUri.toString());
+            String[] rowsToAdd = new String[1];
+            if(Utilities.isFavoriteSortPref(getContext())) {
+                rowsToAdd[0] = "1";
+            }
+            else {
+                rowsToAdd[0] = "0";
+            }
+
+//            getContext().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI,
+//                    MovieContract.MovieEntry.COLUMN_FAVORITE + "= ?",
+//                    rowsToDelete);
+
+
+            Log.d(LOG_TAG + "cursor loader uri", movieUri.toString());
+            Log.d(LOG_TAG + "Where arg", MovieContract.MovieEntry.COLUMN_FAVORITE + "= ?" );
+            Log.d(LOG_TAG + "Where variable", rowsToAdd[0].toString());
+
             return new CursorLoader(getActivity(),
                     movieUri,
                     MOVIE_COLUMNS,
-                    null,
-                    null,
+                    //null,
+                    //null,
+                    MovieContract.MovieEntry.COLUMN_FAVORITE + " = ? ",
+                    rowsToAdd,
                     sortOrder);
         }
 
         @Override
         public void onLoadFinished (Loader < Cursor > loader, Cursor data){
+            Log.d(LOG_TAG + "Cursor Size; ", Integer.toString(data.getCount()));
             mMovieImageAdapter.swapCursor(data);
             if (mPosition != ListView.INVALID_POSITION) {
                 // If we don't need to restart the loader, and there's a desired position to restore

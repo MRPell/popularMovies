@@ -19,10 +19,12 @@
     <string-array name="sort_options">
         <item>By Popularity</item>
         <item>By Highest Rating</item>
+        <item>By Favorites</item>
     </string-array>
     <string-array name="sort_option_values">
         <item>popularity.desc</item>
         <item>vote_average.desc</item>
+        <item>favorites</item>
     </string-array>
     <!-- SyncAdapter related -->
     <string name="sync_account_type">popularmovies.example.com</string>
