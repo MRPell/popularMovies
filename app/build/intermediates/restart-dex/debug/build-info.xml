@@ -5,33 +5,40 @@
     density="xhdpi"
     format="8"
     plugin-version="2.2.1"
-    timestamp="321419467472641"
+    timestamp="325605862683953"
     token="7707650773724458600"
-    verifier="FULL_BUILD_REQUESTED" >
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="7443" />
+        duration="1445" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="1382" />
     <task
         name="instant-run-transform"
-        duration="2729" />
+        duration="89" />
     <task
         name="verifier"
-        duration="356" />
+        duration="7" />
 
     <artifact
-        location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\reload-dex\debug\classes.dex"
+        type="RELOAD_DEX" />
 
     <build
-        timestamp="321419467472641"
+        timestamp="325102944319999"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="325605862683953"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\MRPell\AndroidStudioProjects\PopularMovies\app\build\intermediates\reload-dex\debug\classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

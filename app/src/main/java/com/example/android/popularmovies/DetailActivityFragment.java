@@ -263,7 +263,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
 
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
-        if (mShareActionProvider != null) {
+        if (mShareActionProvider != null && mShareMovieKey != null && mMovieDetails != null) {
             mShareActionProvider.setShareIntent(createShareMovieIntent());
         }
     }
@@ -470,7 +470,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
                     mMovieDetails.put(movieInfo[0], movieInfo[1]);
                     mTrailerAdapter.add(movieInfo[0]);
                 }
-                if (mShareActionProvider != null) {
+                if (mShareActionProvider != null && mShareMovieKey != null && mMovieDetails != null) {
                     mShareActionProvider.setShareIntent(createShareMovieIntent());
                 }
             }
