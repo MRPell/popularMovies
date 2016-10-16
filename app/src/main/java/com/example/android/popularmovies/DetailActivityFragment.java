@@ -266,11 +266,11 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(createShareMovieIntent());
         }
-        data.close();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 
 
@@ -470,7 +470,9 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
                     mMovieDetails.put(movieInfo[0], movieInfo[1]);
                     mTrailerAdapter.add(movieInfo[0]);
                 }
-                mShareActionProvider.setShareIntent(createShareMovieIntent());
+                if (mShareActionProvider != null) {
+                    mShareActionProvider.setShareIntent(createShareMovieIntent());
+                }
             }
 
         }

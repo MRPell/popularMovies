@@ -1,4 +1,4 @@
-#Sun Oct 16 11:36:41 MDT 2016
+#Sun Oct 16 14:33:52 MDT 2016
 base.0=C\:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_6a5bd4573d206b42567516010ba8c0f64d8f627a
 renamed.1=classes.dex
 renamed.0=classes2.dex
