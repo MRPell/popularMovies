@@ -97,9 +97,10 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         FetchRuntimeTask fetchRuntime = new FetchRuntimeTask();
 
 
-        fetchReviews.execute(mMovieId);
+
         fetchRuntime.execute(mMovieId);
         fetchTrailers.execute(mMovieId);
+        fetchReviews.execute(mMovieId);
 
     }
 
