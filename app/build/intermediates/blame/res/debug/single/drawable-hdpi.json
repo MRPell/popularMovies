@@ -1,14 +1,14 @@
 [
     {
-        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_info_black_24dp.png",
-        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\drawable-hdpi\\ic_info_black_24dp.png"
+        "merged": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_notifications_black_24dp.png",
+        "source": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\src\\main\\res\\drawable-hdpi\\ic_notifications_black_24dp.png"
     },
     {
-        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_notifications_black_24dp.png",
-        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\drawable-hdpi\\ic_notifications_black_24dp.png"
+        "merged": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_sync_black_24dp.png",
+        "source": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\src\\main\\res\\drawable-hdpi\\ic_sync_black_24dp.png"
     },
     {
-        "merged": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_sync_black_24dp.png",
-        "source": "C:\\Users\\MRPell\\AndroidStudioProjects\\PopularMovies\\app\\src\\main\\res\\drawable-hdpi\\ic_sync_black_24dp.png"
+        "merged": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_info_black_24dp.png",
+        "source": "C:\\Users\\mrpel\\AndroidStudioProjects\\popularMovies\\app\\src\\main\\res\\drawable-hdpi\\ic_info_black_24dp.png"
     }
 ]
