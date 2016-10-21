@@ -17,8 +17,8 @@ import java.util.Locale;
  * Created by MRPell on 10/15/2016.
  */
 
-public class Utilities {
-    private static final String LOG_TAG = Utilities.class.getSimpleName();
+public class Utility {
+    private static final String LOG_TAG = Utility.class.getSimpleName();
 
 
     public static boolean isFavoriteSortPref(Context context) {
@@ -84,4 +84,13 @@ public class Utilities {
         int year = cal.get(Calendar.YEAR);
         return Integer.toString(year);
     }
+
+    public static String getSortPref(Context context){
+        SharedPreferences SharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String sortPref = SharedPref.getString(
+                "Sort Method", "popularity.desc");
+        return sortPref;
+
+    }
+
 }

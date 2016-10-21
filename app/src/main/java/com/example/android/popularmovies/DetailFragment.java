@@ -47,13 +47,15 @@ import java.util.HashMap;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailActivityFragment extends android.support.v4.app.Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class DetailFragment extends android.support.v4.app.Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     ArrayAdapter<String> mTrailerAdapter;
     private String mMovieId;
     private String mShareMovieKey;
+    private Uri mUri;
     private String mMovieTitle;
+    static final String DETAIL_URI = "URI";
 
-    private static final String LOG_TAG = DetailActivityFragment.class.getSimpleName();
+    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
     private static final String MOVIE_SHARE_HASHTAG = " #PopularMoviesApp";
 
@@ -87,7 +89,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
     static final int COL_MOVIE_FAVORITE = 7;
 
 
-    public DetailActivityFragment() {
+    public DetailFragment() {
         setHasOptionsMenu(true);
     }
 
@@ -107,6 +109,11 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            mUri = arguments.getParcelable(DetailFragment.DETAIL_URI);
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         final Button button = (Button) rootView.findViewById(R.id.favorite_button);
 
@@ -122,7 +129,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
                             mMovieId;
 
                     ContentValues args = new ContentValues();
-                    if (Utilities.isFavorite(getContext(), mMovieId)) {
+                    if (Utility.isFavorite(getContext(), mMovieId)) {
                         args.put(MovieContract.MovieEntry.COLUMN_FAVORITE, 0);
                     } else {
                         args.put(MovieContract.MovieEntry.COLUMN_FAVORITE, 1);
@@ -142,12 +149,23 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
 
     }
 
+    void onSortPreferenceChanged(String newPreference) {
+        Uri uri = mUri;
+        if (null != uri) {
+            long movieId = MovieContract.MovieEntry.getMovieIdFromUri(uri);
+
+            Uri updateUri = MovieContract.MovieEntry.buildMovieUri(movieId);
+            mUri = updateUri;
+            getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
+        }
+    }
+
 
     public void setButtonText(Button button) {
         if (mMovieId != null) {
             Log.d(LOG_TAG + "mMovieId SetButton", "set Button Text");
-            Log.d(LOG_TAG + "IS FAVORITE? ", Boolean.toString(Utilities.isFavorite(getContext(), mMovieId)));
-            if (Utilities.isFavorite(getContext(), mMovieId)) {
+            Log.d(LOG_TAG + "IS FAVORITE? ", Boolean.toString(Utility.isFavorite(getContext(), mMovieId)));
+            if (Utility.isFavorite(getContext(), mMovieId)) {
                 button.setText("Remove From\nFavorites");
             } else {
                 button.setText("Mark as\nFavorite");
@@ -194,21 +212,20 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Intent intent = getActivity().getIntent();
-        if (intent == null) {
-            return null;
-        }
+        if (mUri != null) {
 
-        // Now create and return a CursorLoader that will take care of
-        // creating a Cursor for the data being displayed.
-        return new CursorLoader(
-                getActivity(),
-                intent.getData(),
-                MOVIE_COLUMNS,
-                null,
-                null,
-                null
-        );
+            // Now create and return a CursorLoader that will take care of
+            // creating a Cursor for the data being displayed.
+            return new CursorLoader(
+                    getActivity(),
+                    mUri,
+                    MOVIE_COLUMNS,
+                    null,
+                    null,
+                    null
+            );
+        }
+        return null;
     }
 
     @Override
@@ -254,7 +271,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
         TextView detailTextView3 = (TextView) getView().findViewById(R.id.detail_rating_text);
         detailTextView3.setText(userRating + "/10");
         TextView detailTextView4 = (TextView) getView().findViewById(R.id.detail_release_date_text);
-        detailTextView4.setText(Utilities.formatReleaseDate(releaseDate));
+        detailTextView4.setText(Utility.formatReleaseDate(releaseDate));
         //populate image view with movie poster
         Picasso.with(getContext()).load(
                 getString(R.string.poster_base_url) + posterPath).
@@ -263,14 +280,14 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
 
 
         // If onCreateOptionsMenu has already happened, we need to update the share intent now.
-        if (mShareActionProvider != null) {
+        if (mShareActionProvider != null && mShareMovieKey != null && mMovieDetails != null) {
             mShareActionProvider.setShareIntent(createShareMovieIntent());
         }
-        data.close();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 
 
@@ -456,7 +473,7 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
             });
 
 
-            if (result != null) {
+            if (result != null && result.length > 0) {
                 mTrailerAdapter.clear();
                 mMovieDetails.clear();
                 String shareKey[] = result[0].split("-");
@@ -470,7 +487,14 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
                     mMovieDetails.put(movieInfo[0], movieInfo[1]);
                     mTrailerAdapter.add(movieInfo[0]);
                 }
-                mShareActionProvider.setShareIntent(createShareMovieIntent());
+                if (mShareActionProvider != null && mShareMovieKey != null && mMovieDetails != null) {
+                    mShareActionProvider.setShareIntent(createShareMovieIntent());
+                }
+            }
+            else{
+
+                    Log.d(LOG_TAG + "TRAILER ADAPTER", "result was null");
+                    mTrailerAdapter.add("No Trailers Found");
             }
 
         }
@@ -628,11 +652,16 @@ public class DetailActivityFragment extends android.support.v4.app.Fragment impl
             listViewReviews.setAdapter(reviewAdapter);
             reviewAdapter.setNotifyOnChange(true);
 
-            if (result != null) {
+            if (result != null && result.length > 0) {
+                Log.d(LOG_TAG + "Reviews results: ", result[0]);
                 reviewAdapter.clear();
                 for (String trailerStr : result) {
                     reviewAdapter.add(trailerStr);
                 }
+            }
+            else {
+                Log.d(LOG_TAG + "REVIEWS ADAPTER", "result was null");
+                reviewAdapter.add("No Reviews Found");
             }
 
         }

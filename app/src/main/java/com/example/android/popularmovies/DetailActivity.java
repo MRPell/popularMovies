@@ -3,8 +3,6 @@ package com.example.android.popularmovies;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
-import static com.example.android.popularmovies.R.id.container;
-
 /**
  * Created by MRPell on 4/22/2016.
  */
@@ -19,8 +17,14 @@ public class DetailActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
+
+            Bundle arguments = new Bundle();
+            arguments.putParcelable(DetailFragment.DETAIL_URI, getIntent().getData());
+
+            DetailFragment fragment = new DetailFragment();
+            fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(container, new DetailActivityFragment())
+                    .add(R.id.movie_detail_container, fragment)
                     .commit();
         }
     }

@@ -17,9 +17,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.android.popularmovies.BuildConfig;
-import com.example.android.popularmovies.MainActivityFragment;
 import com.example.android.popularmovies.R;
-import com.example.android.popularmovies.Utilities;
+import com.example.android.popularmovies.Utility;
 import com.example.android.popularmovies.data.MovieContract;
 
 import org.json.JSONArray;
@@ -97,7 +96,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
 
         Log.d(LOG_TAG + "Shared Prefs = ", mSortPref);
-        if (!Utilities.isFavoriteSortPref(getContext())){
+        if (!Utility.isFavoriteSortPref(getContext())){
         //if (!mSortPref.equals("favorites")) {
             Log.d(LOG_TAG, "starting sync");
 
@@ -188,7 +187,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
             }
         }
-        else if(Utilities.isFavoriteSortPref(getContext())) {
+        else if(Utility.isFavoriteSortPref(getContext())) {
             Log.d(LOG_TAG, " delete non favorites" );
             String[] rowsToDelete = new String[1];
             rowsToDelete[0] = "0";

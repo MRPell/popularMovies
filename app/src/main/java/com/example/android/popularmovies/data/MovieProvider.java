@@ -64,7 +64,7 @@ sortOrder	String: How the rows in the cursor should be sorted. If null then the 
     private Cursor getMovie(Uri uri, String[] projection, String selection, String[] selectionArgs) {
 
         //movie to be selected by cursor
-        String movieId = MovieContract.MovieEntry.getMovieIdFromUri(uri);
+        String movieId = Long.toString(MovieContract.MovieEntry.getMovieIdFromUri(uri));
         if(selection == null) {
             selection = sMovieSelection;
             selectionArgs = new String[]{movieId};

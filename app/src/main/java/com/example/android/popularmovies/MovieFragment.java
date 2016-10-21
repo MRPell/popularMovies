@@ -26,12 +26,12 @@ import com.example.android.popularmovies.sync.MovieSyncAdapter;
  * Fragment of main activity, displays a grid view of movie poster images
  * for user to select
  */
-public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MovieFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     ImageAdapter mMovieImageAdapter; //used to place image views into gridview
     private int mPosition = GridView.INVALID_POSITION;
     private static final int MOVIE_LOADER = 0;
     private static final String SELECTED_KEY = "selected_position";
-    private final String LOG_TAG = MainActivityFragment.class.getSimpleName();
+    private final String LOG_TAG = MovieFragment.class.getSimpleName();
     private GridView mGridView;
     private boolean mUseTodayLayout;
 
@@ -64,10 +64,10 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
         /**
          * DetailFragmentCallback for when an item has been selected.
          */
-        public void onItemSelected(Uri dateUri);
+        public void onItemSelected(Uri movieIdUri);
     }
 
-    public MainActivityFragment() {
+    public MovieFragment() {
     }
 
     @Override
@@ -102,7 +102,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         mMovieImageAdapter = new ImageAdapter(getActivity(), null, 0);
@@ -122,12 +122,9 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
                 // if it cannot seek to that position.
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if (cursor != null) {
-                    Log.v(LOG_TAG + "Movie ID", Long.toString(cursor.getLong(COL_MOVIE_ID)));
-                    Uri detailUri = MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID));
-                    Log.v(LOG_TAG, detailUri.toString());
-                    Intent intent = new Intent(getActivity(), DetailActivity.class)
-                            .setData(detailUri);
-                    startActivity(intent);
+                    //Log.v(LOG_TAG + "Movie ID", Long.toString(cursor.getLong(COL_MOVIE_ID)));
+                    //Uri detailUri = MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID));
+                    ((Callback) getActivity()).onItemSelected(MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)));
 //                    //content://com.example.android.popularmovies.app/movies/0
 //                    ((Callback) getActivity())
 //                            .onItemSelected(MovieContract.MovieEntry.buildMovieUri(cursor.getLong(COL_MOVIE_ID)));
@@ -135,12 +132,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
 //                mPosition = position;
 //            }
 //        });
-//        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
-//            // The listview probably hasn't even been populated yet.  Actually perform the
-//            // swapout in onLoadFinished.
-//            mPosition = savedInstanceState.getInt(SELECTED_KEY);
-//        }
-//        return rootView;
+
                 }
             }
         });
@@ -209,7 +201,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             Uri movieUri = MovieContract.MovieEntry.buildMovieUri(-1);
 
             String[] rowsToAdd = new String[1];
-            if(Utilities.isFavoriteSortPref(getContext())) {
+            if(Utility.isFavoriteSortPref(getContext())) {
                 rowsToAdd[0] = "1";
             }
             else {

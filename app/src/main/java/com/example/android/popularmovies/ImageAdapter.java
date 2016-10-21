@@ -77,19 +77,19 @@ public class ImageAdapter extends CursorAdapter {
 
         // Get movie poster icon
         Picasso.with(context).load(imagePath +
-                cursor.getString(MainActivityFragment.COL_MOVIE_POSTER)).into(viewHolder.gridView);
+                cursor.getString(MovieFragment.COL_MOVIE_POSTER)).into(viewHolder.gridView);
 
 //        iconView = (ImageView) view.findViewById(R.id.detail_poster_image);
 //        synopsisView = (TextView) view.findViewById(R.id.detail_synopsis_text);
 //        userRatingView = (TextView) view.findViewById(R.id.detail_rating_text);
 //        movieTitleView = (TextView) view.findViewById(R.id.detail_title_text);
         // Read synopsis from cursor
-//        String synopsis = cursor.getString(MainActivityFragment.COL_MOVIE_SYNOPIS);
+//        String synopsis = cursor.getString(MovieFragment.COL_MOVIE_SYNOPIS);
 //        // Find TextView and set formatted date on it
 //        viewHolder.synopsisView.setText(synopsis);
 //
 //        // Read weather forecast from cursor
-//        String title = cursor.getString(MainActivityFragment.COL_MOVIE_TITLE);
+//        String title = cursor.getString(MovieFragment.COL_MOVIE_TITLE);
 //        // Find TextView and set weather forecast on it
 //        viewHolder.movieTitleView.setText(title);
 //
@@ -97,14 +97,14 @@ public class ImageAdapter extends CursorAdapter {
 //        viewHolder.iconView.setContentDescription(title);
 //
 //        // Read high temperature from cursor
-//        String releaseDate = cursor.getString(MainActivityFragment.COL_MOVIE_RELEASE_DATE);
+//        String releaseDate = cursor.getString(MovieFragment.COL_MOVIE_RELEASE_DATE);
 //        viewHolder.releaseDate.setText(releaseDate);
 //
 //        // Read low temperature from cursor
-//        double userRating = cursor.getDouble(MainActivityFragment.COL_MOVIE_USER_RATING);
+//        double userRating = cursor.getDouble(MovieFragment.COL_MOVIE_USER_RATING);
 //        viewHolder.userRatingView.setText(Double.toString(userRating));
 //
-//        String poster = cursor.getString(MainActivityFragment.COL_MOVIE_POSTER);
+//        String poster = cursor.getString(MovieFragment.COL_MOVIE_POSTER);
 //        Picasso.with(mContext).load(poster).into(viewHolder.iconView);
 
 

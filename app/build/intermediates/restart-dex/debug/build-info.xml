@@ -4,30 +4,30 @@
     api-level="23"
     density="xhdpi"
     format="8"
-    plugin-version="2.2.1"
-    timestamp="420326996377109"
+    plugin-version="2.2.2"
+    timestamp="582618864928686"
     token="57759526179200239"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="6004" />
+        duration="17158" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="1137" />
+        duration="2954" />
     <task
         name="verifier"
-        duration="198" />
+        duration="605" />
 
     <artifact
         location="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\outputs\apk\app-debug.apk"
         type="MAIN" />
 
     <build
-        timestamp="420326996377109"
+        timestamp="582618864928686"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\mrpel\AndroidStudioProjects\popularMovies\app\build\outputs\apk\app-debug.apk"

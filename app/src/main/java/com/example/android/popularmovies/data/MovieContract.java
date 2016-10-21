@@ -80,8 +80,8 @@ else
             return returnUri;
         }
 
-        public static String getMovieIdFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
+        public static long getMovieIdFromUri(Uri uri) {
+            return Long.parseLong(uri.getPathSegments().get(1));
         }
 
     }
